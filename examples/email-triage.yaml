@@ -1,0 +1,44 @@
+# Email inbox triage: sort emails and decide what needs your attention today.
+# No coding needed. Context to pass: sender, subject, date and email body.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  category:
+    type: choice
+    question: What kind of email is this?
+    options:
+      action: Someone asks me to do, decide, approve or answer something.
+      fyi: Information for me, no action needed.
+      meeting: A meeting invite, change or cancellation.
+      newsletter: A newsletter, marketing or automated notification.
+      invoice: A bill, invoice, receipt or payment notice.
+
+  needs_reply:
+    type: yes_no
+    question: Does this email need a reply from me?
+    yes_when: A person wrote to me directly and asks a question, a decision or a confirmation.
+    no_when: It is automated, a newsletter, or only shares information.
+
+  reply_today:
+    type: yes_no
+    question: Should I reply to this email today?
+    yes_when: It mentions a deadline within two days, is from a customer or manager waiting on me, or blocks someone else's work.
+    no_when: It can wait until later this week without any problem.
+    threshold: 0.6
+
+  has_deadline:
+    type: yes_no
+    question: Does this email mention a deadline or due date?
+    yes_when: It names a date, time or period by which something must be done.
+    no_when: No date or time limit is mentioned.
+
+  looks_like_phishing:
+    type: yes_no
+    question: Does this email look like phishing or a scam?
+    yes_when: It asks for passwords, payment or gift cards, urges immediate action, or has a sender address that does not match the company it claims to be.
+    no_when: It is a normal email from a known sender with no suspicious requests.
+    threshold: 0.3

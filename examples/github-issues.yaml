@@ -1,0 +1,78 @@
+# Developer workflow: decisions while working on a GitHub issue.
+# Copy to <your-repo>/.jev/rules.yaml and edit to fit your team.
+#
+# yes_no -> decision = yes when probability >= threshold.
+#           uncertain = true when probability is within `margin` of threshold.
+# choice -> picks one option. uncertain = true when confidence < min_confidence.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  issue_type:
+    type: choice
+    question: What kind of work is this issue?
+    options:
+      bug: Something is broken or behaves differently than expected.
+      feature: New behavior or a new capability.
+      improvement: Change to existing behavior, performance or UX, without a new capability.
+      chore: Dependencies, build, CI, refactoring or cleanup with no user-visible change.
+      docs: Only documentation changes.
+
+  work_size:
+    type: choice
+    question: How big is this work?
+    options:
+      small: Less than one day of work.
+      medium: One to three days of work.
+      large: More than three days of work.
+
+  split_issue:
+    type: yes_no
+    question: Should this issue be split into sub-issues?
+    yes_when: The issue has several independent parts that can be built, reviewed or shipped separately, or it is too big for one pull request.
+    no_when: The issue is one focused change that fits in a single pull request.
+    threshold: 0.6
+
+  needs_clarification:
+    type: yes_no
+    question: Is the issue missing information needed to start work?
+    yes_when: Expected behavior, steps to reproduce, acceptance criteria or scope are unclear or contradictory.
+    no_when: A developer can start work without asking the author anything.
+    threshold: 0.6
+
+  responsive_ui:
+    type: yes_no
+    question: Does this issue require responsive UI changes?
+    yes_when: It adds or changes UI that must work on mobile, tablet and desktop screen sizes.
+    no_when: It has no UI changes, or the UI change does not affect layout on different screen sizes.
+
+  needs_db_migration:
+    type: yes_no
+    question: Does this issue need a database schema change or data migration?
+    yes_when: It adds, removes or changes tables, columns, indexes, or needs existing data to be moved or converted.
+    no_when: It works with the current database schema and data.
+
+  needs_tests:
+    type: yes_no
+    question: Should new or updated automated tests be written?
+    yes_when: It changes logic, fixes a bug that could come back, or adds behavior that can be tested.
+    no_when: It only changes text, styles, docs or config with no logic.
+    threshold: 0.4
+
+  needs_code_review:
+    type: yes_no
+    question: Should we run a code review on this change?
+    yes_when: The change touches business logic, security, data, APIs, or more than a few lines.
+    no_when: The change is trivial, such as a typo, copy text, or a config value.
+    threshold: 0.3
+
+  create_pr_now:
+    type: yes_no
+    question: Should we create the pull request now?
+    yes_when: The planned work is complete, builds pass, and nothing listed in the issue is left to do.
+    no_when: Work listed in the issue is still pending, or builds or tests are failing.
+    threshold: 0.7
+    margin: 0.15

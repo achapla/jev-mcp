@@ -1,0 +1,61 @@
+{
+  "name": "@achapla/jev-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for rule-based decisions with Jev, the decision model on OpenRouter. Define yes/no and multiple-choice rules instead of hard-coded workflows.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "jev",
+    "typesafe",
+    "openrouter",
+    "decision",
+    "workflow",
+    "rules",
+    "claude",
+    "ai-agent"
+  ],
+  "homepage": "https://github.com/achapla/jev-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/achapla/jev-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achapla/jev-mcp.git"
+  },
+  "license": "MIT",
+  "author": "Anand Chapla",
+  "type": "module",
+  "bin": {
+    "jev-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "examples"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "test": "pnpm build && node --test \"test/*.test.mjs\"",
+    "prepublishOnly": "pnpm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.1.2",
+      "onFail": "download"
+    }
+  }
+}

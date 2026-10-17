@@ -1,0 +1,36 @@
+# Writing and publishing: check a blog post, newsletter or social post before you publish it.
+# No coding needed. Context to pass: the draft text, and who the audience is.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  ready_to_publish:
+    type: yes_no
+    question: Is this draft ready to publish?
+    yes_when: It has a clear point, a complete structure, no placeholder text like TODO or [link], and no obvious errors.
+    no_when: It is unfinished, has placeholders, or the main point is unclear.
+    threshold: 0.7
+
+  reading_level:
+    type: choice
+    question: How easy is this text to read?
+    options:
+      easy: Short sentences and common words. Anyone can follow it.
+      medium: Some longer sentences or terms, but clear for the target audience.
+      hard: Long sentences, jargon or dense paragraphs. Many readers will struggle.
+
+  has_call_to_action:
+    type: yes_no
+    question: Does the text end with a clear call to action?
+    yes_when: It tells the reader what to do next, such as subscribe, reply, try, read more or share.
+    no_when: It ends without asking the reader to do anything.
+
+  needs_fact_check:
+    type: yes_no
+    question: Does this text contain claims that should be fact-checked?
+    yes_when: It includes numbers, statistics, dates, quotes, or claims about real people, companies or studies.
+    no_when: It is mainly opinion or personal experience with no factual claims.
+    threshold: 0.4

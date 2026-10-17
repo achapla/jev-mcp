@@ -1,0 +1,46 @@
+# Customer support: route tickets, detect urgency, and decide when a human must take over.
+# Context to pass: ticket subject and message, customer plan or tier, and previous messages in the thread.
+# Edit `team` options to match your own teams.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  team:
+    type: choice
+    question: Which team should handle this ticket?
+    options:
+      billing: Payments, invoices, refunds, plans and pricing.
+      technical: Bugs, errors, integrations and how the product works.
+      account: Login, password, profile, team members and permissions.
+      sales: Questions from people who are not customers yet, or about upgrading.
+
+  sentiment:
+    type: choice
+    question: How does the customer feel?
+    options:
+      happy: Positive, thankful or satisfied.
+      neutral: Calm, just asking or reporting.
+      frustrated: Annoyed or disappointed, but still polite.
+      angry: Very upset, threatening to leave, or using strong language.
+
+  is_refund_request:
+    type: yes_no
+    question: Is the customer asking for a refund or to cancel?
+    yes_when: The customer asks for money back, to cancel a subscription, or to stop being charged.
+    no_when: The customer does not ask for a refund or cancellation.
+
+  escalate_to_human:
+    type: yes_no
+    question: Should a human agent take over this ticket?
+    yes_when: The customer is angry, mentions legal action, a data or security problem, a large payment issue, or has asked more than twice without a solution.
+    no_when: It is a common question that can be answered from the help docs.
+    threshold: 0.4
+
+  can_answer_from_docs:
+    type: yes_no
+    question: Can this be fully answered with standard help documentation?
+    yes_when: It is a common how-to question with a standard answer.
+    no_when: It needs account-specific investigation, a decision, or a bug fix.

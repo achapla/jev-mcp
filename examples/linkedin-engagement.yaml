@@ -1,0 +1,45 @@
+# LinkedIn: decide which posts to comment on, and check your draft comment before posting.
+# No coding needed. Context to pass: the post text (and author headline), plus your draft comment when checking it.
+# Edit `should_comment` to describe your own field and goals.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  should_comment:
+    type: yes_no
+    question: Should I comment on this post?
+    yes_when: The post is about software development, AI tools or startups, and a thoughtful comment can add value or start a useful conversation.
+    no_when: The post is off-topic for me, pure self-promotion, a job ad, politics, or a topic where a comment adds nothing.
+
+  post_tone:
+    type: choice
+    question: What is the tone of this post?
+    options:
+      professional: Formal, informative, business-like.
+      personal: A personal story, lesson or reflection.
+      celebratory: Announcing an achievement, launch or milestone.
+      controversial: A strong opinion meant to create debate.
+      promotional: Mainly selling a product, service or event.
+
+  comment_asks_question:
+    type: yes_no
+    question: Does my draft comment ask the author a question?
+    yes_when: The comment contains at least one genuine question to the author or readers.
+    no_when: The comment has no question.
+
+  comment_is_generic:
+    type: yes_no
+    question: Is my draft comment generic?
+    yes_when: It could be posted on almost any post, such as "Great post!", "Thanks for sharing" or "So true".
+    no_when: It refers to specific points in the post or adds my own experience or opinion.
+    threshold: 0.4
+
+  comment_is_salesy:
+    type: yes_no
+    question: Does my draft comment sound like a sales pitch?
+    yes_when: It promotes my product, service or profile, or asks people to contact me.
+    no_when: It only responds to the post.
+    threshold: 0.4

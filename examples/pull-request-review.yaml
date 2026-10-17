@@ -1,0 +1,43 @@
+# Reviewing a pull request: what kind of review it needs and whether it can be merged.
+# Context to pass: PR title, description, list of changed files, the diff (or a summary), and CI status.
+
+defaults:
+  threshold: 0.5
+  margin: 0.1
+  min_confidence: 0.6
+
+rules:
+  review_depth:
+    type: choice
+    question: How deep should the review of this pull request be?
+    options:
+      quick: Small, low-risk change. A quick look is enough.
+      standard: Normal change. Read every changed line.
+      deep: Large or risky change. Review design, edge cases and run it locally.
+
+  needs_security_review:
+    type: yes_no
+    question: Does this change need a security review?
+    yes_when: It touches authentication, permissions, secrets, user input handling, payments, file uploads, or personal data.
+    no_when: It does not touch any security-sensitive area.
+    threshold: 0.3
+
+  breaking_change:
+    type: yes_no
+    question: Is this a breaking change for users or other services?
+    yes_when: It removes or renames a public API, endpoint, CLI flag, config option or event, or changes their behavior in a way callers must adapt to.
+    no_when: Existing callers keep working without changes.
+
+  description_matches_diff:
+    type: yes_no
+    question: Does the pull request description match what the code changes do?
+    yes_when: The description explains the changes that appear in the diff, with no large unexplained changes.
+    no_when: The diff contains significant changes the description does not mention, or the description claims things the diff does not do.
+
+  ready_to_merge:
+    type: yes_no
+    question: Is this pull request ready to merge?
+    yes_when: CI passes, review comments are resolved, and nothing is marked as work in progress.
+    no_when: CI fails, there are open review comments, or the author marked it as not ready.
+    threshold: 0.8
+    margin: 0.1
