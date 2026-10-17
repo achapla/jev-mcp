@@ -30,7 +30,7 @@ I am sharing it so others can get ideas from it and build or customize their own
 
 - **Developers**: decide whether to split an issue, run a code review, add tests or open a PR. See [examples/github-issues.yaml](examples/github-issues.yaml).
 - **Support teams**: route tickets, detect angry customers, decide when a human must take over.
-- **Anyone using an AI assistant**: triage email, decide which LinkedIn posts to comment on, check a draft before publishing. No coding needed.
+- **Anyone using an AI assistant**: triage email, check a draft before publishing. No coding needed.
 
 See [examples/](examples/) for ready-to-use rule sets and what to say to the AI.
 

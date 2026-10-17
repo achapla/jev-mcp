@@ -8,7 +8,6 @@ Each file is a ready-to-use rule set. Copy one, edit the wording to fit your sit
 | [pull-request-review.yaml](pull-request-review.yaml) | Developers, reviewers | Review depth, security review, breaking change, description matches diff, ready to merge |
 | [customer-support.yaml](customer-support.yaml) | Support teams | Which team, customer mood, refund request, hand over to a human, answer from docs |
 | [email-triage.yaml](email-triage.yaml) | Anyone | Email category, needs reply, reply today, has deadline, looks like phishing |
-| [linkedin-engagement.yaml](linkedin-engagement.yaml) | Anyone on social media | Should I comment, post tone, and checks on your draft comment |
 | [content-publishing.yaml](content-publishing.yaml) | Writers, marketers | Ready to publish, reading level, call to action, needs fact check |
 
 ## How to use a rule set
@@ -37,9 +36,6 @@ You do not call the tools yourself. You ask in normal language, and the AI clien
 
 **Email**
 > Here are my 10 unread emails. For each one, run the email triage rules and give me a table of what needs a reply today.
-
-**LinkedIn**
-> Here is a post: "...". Should I comment? If yes, write a comment, then check the draft with the comment rules and fix anything flagged.
 
 **Writer**
 > Check this draft with content-publishing.yaml before I publish it.
