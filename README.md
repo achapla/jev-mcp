@@ -13,6 +13,12 @@ Instead of a fixed workflow, you write **rules**: yes/no or multiple-choice ques
 "Should we create the pull request now?"       ->  no   (probability 0.60, uncertain -> ask the user)
 ```
 
+## About this project
+
+I built this for my own use. It does not support every Jev feature (for example the `score` and `box` question types and image input), and some design choices fit my personal workflow only.
+
+I am sharing it so others can get ideas from it and build or customize their own MCP server for their needs. Feel free to fork it and change anything.
+
 ## Why
 
 - **Rules instead of a hard-coded workflow.** Change behavior by editing a YAML file, not code.

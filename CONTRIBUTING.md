@@ -2,6 +2,8 @@
 
 Thanks for helping improve jev-mcp.
 
+This project was built for personal use and shared as a starting point. Forking it and changing it for your own needs is the main way to use it. Pull requests are welcome, but features outside the original scope may not be merged.
+
 ## Setup
 
 Requires Node.js 22+ and [pnpm](https://pnpm.io).
